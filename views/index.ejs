@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    
+</head>
+<body>
+       <div class="container">
+        <h2 class="jumbotron text-center">Message Board </h2>
+    <form action="/posts" method="post"><h3>Name:</h3>
+        <input class="form-control" type='text' name="name"><br><br>
+        <h3>Message:</h3>
+        <textarea class="form-control" name="message"></textarea><br>
+        <input class="btn btn-primary" type="submit">
+    </form>
+    <% if(typeof(errors) != 'undefined' ) { %>
+            <% for (var i in errors) { %>
+             <h3><%= errors[i].message %></h3>
+            <% } %>
+            <% } else { %>
+           </div>      
+<div class="row">
+    
+    <div class="col">
+    <% for( i in posts){%>
+        <div>
+       <h3><%=posts[i].name %> said:</h3><br>
+       <h3 > <br><br> <%=posts[i].message %></h3><br><br><hr>
+       <div class="container">
+       <h3>Comments:</h3>
+       <% for (var x= 0; x < posts[i]._comments.length; x++){ %>
+                
+           
+           <p class="blockquote"><%= posts[i]._comments[x].message %></p><hr>
+           <p class="blockquote-footer"><%= posts[i]._comments[x].name %></p>
+            <% } %>
+        
+            <form action=<%="/comment/" + posts[i]._id %> method="post">
+                <p>Name: </p><input class="form-control" type="text" name="name">
+                <p>Comment: </p><textarea class="form-control" name="message"></textarea>
+                <input class="btn btn-primary btn-outline-info" type="submit" value="Comment">
+            </form>
+                </div>
+                    <% } %>
+                </div>
+             <% } %>
+            </div>
+        </div>
+</body>
+</html>
